@@ -46,7 +46,7 @@ const Button = styled.button`
 
 function Signup() {
   const [formData, setFormData] = useState({
-    name: '', email: '', username: '', password: '', ssn: '', phone: '', account: '', recommender: ''
+    name: '', email: '', username: '', password: '', ssn: '', phone: '', account: ''
   });
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
@@ -62,15 +62,26 @@ function Signup() {
     }
   };
 
+  const placeholders = {
+    name: '이름',
+    email: '이메일',
+    username: '사용자 이름',
+    password: '비밀번호',
+    ssn: '주민등록번호',
+    phone: '전화번호',
+    account: '계좌번호'
+  };
+
   return (
     <SignupContainer>
       <FormContainer>
         <h1>회원가입</h1>
-        {['name', 'email', 'username', 'password', 'ssn', 'phone', 'account', 'recommender'].map((field) => (
+        {Object.keys(placeholders).map((field) => (
           <Input
             key={field}
             name={field}
-            placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+            type={field === 'password' ? 'password' : 'text'} // 비밀번호 필드만 type="password"
+            placeholder={placeholders[field]}
             onChange={handleChange}
             required
           />
